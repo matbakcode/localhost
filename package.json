@@ -1,0 +1,40 @@
+{
+    "name": "boilerplate-babel-webpack",
+    "version": "1.0.0",
+    "description": "Starter with Babel.js and Webpack",
+    "license": "MIT",
+    "author": {
+        "name": "",
+        "email": "",
+        "url": ""
+    },
+    "scripts": {
+        "clear": "rm -rf dist/",
+        "clear:all": "rm -rf node_modules/ && npm run clear",
+        "build": "npm run build:development",
+        "build:development": "webpack --config webpack/webpack.config.dev.js",
+        "build:production": "webpack --config webpack/webpack.config.prod.js",
+        "watch": "npm run build:development -- -w",
+        "start": "http-server dist/",
+        "dev": "webpack-dev-server --config webpack/webpack.config.dev.js"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.5",
+        "babel-loader": "^8.1.0",
+        "file-loader": "^6.0.0",
+        "http-server": "^0.12.1",
+        "source-map-explorer": "^2.4.2",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.10.3"
+    },
+    "keywords": [
+    ],
+    "repository": {
+        "type": "git",
+    },
+    "dependencies": {
+
+    }
+}
