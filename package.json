@@ -32,7 +32,7 @@
     "keywords": [
     ],
     "repository": {
-        "type": "git",
+        "type": "git"
     },
     "dependencies": {
 
