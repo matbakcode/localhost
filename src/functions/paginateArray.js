@@ -1,10 +1,42 @@
-export const paginateArray = (dataEntries, settings) => {
+/**
+ * @param {Array} dataEntries - Data for pagination
+ * @param {Object} settings - Settings object
+ * @param {number} settings.actualPageIdx - Current page index
+ * @param {number} settings.entriesOnPage - All entries on page
+ */
+export const paginateArray = (dataEntries = [], settings) => {
 
-    function paginateArraySettingsValueNormalize (param, def) {
+    function paginateArrayDataEntriesNormalize (dataEntries, defaultDataEntries) {
         return (
-            typeof param !== 'number' ||
-            param < 1
-        ) ? def : param;
+            dataEntries &&
+            Array.isArray(dataEntries) &&
+            dataEntries.constructor === Array
+        ) ?
+            dataEntries :
+            defaultDataEntries;
+    }
+
+    function paginateArraySettingsValueNormalize (value, defaultValue) {
+        return (
+            typeof value === 'number' &&
+            isFinite(value) &&
+            value > 0
+        ) ?
+            value :
+            defaultValue;
+    }
+
+    function paginateArraySettingsNormalize (settings, defaultSettings) {
+       return (settings &&
+            typeof settings === 'object' &&
+            settings.constructor === Object
+        ) ?
+            {
+                actualPageIdx: paginateArraySettingsValueNormalize(settings.actualPageIdx, defaultSettings.actualPageIdx),
+                entriesOnPage: paginateArraySettingsValueNormalize(settings.entriesOnPage, defaultSettings.entriesOnPage),
+            } :
+            {...defaultSettings};
+
     }
 
     const defaultSettings = {
@@ -12,17 +44,13 @@ export const paginateArray = (dataEntries, settings) => {
         entriesOnPage: 10
     }
 
-    const s = {
-        actualPageIdx: paginateArraySettingsValueNormalize( settings.actualPageIdx, defaultSettings.actualPageIdx ),
-        entriesOnPage: paginateArraySettingsValueNormalize( settings.entriesOnPage, defaultSettings.entriesOnPage ),
-    }
+    const dataArrayNormalized = paginateArrayDataEntriesNormalize(dataEntries, []);
+    const settingsNormalized = paginateArraySettingsNormalize(settings, defaultSettings);
 
-    const range = {
-        start: (s.actualPageIdx - 1) * s.entriesOnPage,
-        end: ((s.actualPageIdx - 1) * s.entriesOnPage) + s.entriesOnPage
-    }
+    const paginationIndexStart = (settingsNormalized.actualPageIdx-1) * settingsNormalized.entriesOnPage;
+    const paginationIndexEnd = ((settingsNormalized.actualPageIdx-1) * settingsNormalized.entriesOnPage) + settingsNormalized.entriesOnPage
 
-    const entriesOnSelectedPage = dataEntries.slice(range.start, range.end);
+    const entriesOnSelectedPage = dataArrayNormalized.slice(paginationIndexStart, paginationIndexEnd);
 
     return entriesOnSelectedPage;
 }

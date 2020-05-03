@@ -7,8 +7,8 @@ import { paginateArray } from "./functions/paginateArray";
     'use strict';
 
     const settings = {
-        actualPageIdx: 9,
-        entriesOnPage: 5,
+        actualPageIdx: 5,
+        entriesOnPage: 9,
     };
     const moviesToRender = paginateArray( movies, settings);
 
