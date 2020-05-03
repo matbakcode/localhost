@@ -17,6 +17,11 @@ export const paginateArray = (dataEntries = [], settings) => {
     }
 
     function paginateArraySettingsValueNormalize (value, defaultValue) {
+        console.log(
+            typeof value === 'number',
+            isFinite(value),
+            value > 0
+        )
         return (
             typeof value === 'number' &&
             isFinite(value) &&
