@@ -29,12 +29,12 @@
         "webpack-cli": "^3.3.11",
         "webpack-dev-server": "^3.10.3"
     },
-    "keywords": [
-    ],
+    "keywords": [],
     "repository": {
         "type": "git"
     },
     "dependencies": {
-
+        "css-loader": "^3.5.3",
+        "style-loader": "^1.2.1"
     }
 }
